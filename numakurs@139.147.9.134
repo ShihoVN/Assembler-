@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bt.h"
+
+BinaryTree* initializeTree(){
+    BinaryTree* bt = createBinaryTree();
+
+    FILE *fp;
+    char str[100];
+    char* s;
+
+    fp = fopen("readin.txt", "r");
+    printf("START\n");
+    while(fgets(str, 100, fp)){
+        s = strtok(str, " ");
+        if(strcmp(s, "EOF")==0){
+           break;
+        }
+        printf("node\n");
+        BTNode* newNode = (BTNode*)malloc( sizeof( BTNode ));
+        strcpy(newNode->syntax, s);
+        char* index;
+        char* hex;
+
+        index = strtok(NULL, " ");
+        hex = strtok(NULL, " ");
+        printf("about to get added\n");
+        while((index != NULL)){
+            strcpy(newNode->mode[(atoi(index))], hex);
+
+            
+            index = strtok(NULL, " ");
+            hex = strtok(NULL, " ");
+
+            
+        }
+        printf("node finished\n");
+        insertInBinaryTree(bt,newNode);
+        
+    }
+
+
+
+    printf("inserted\n");
+    return (bt);
+
+}
+
+
